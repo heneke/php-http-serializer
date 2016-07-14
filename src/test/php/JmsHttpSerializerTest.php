@@ -1,25 +1,23 @@
 <?php
-namespace Pixw\HttpMessage\Converter\Jms;
+namespace Heneke\Http\Serializer;
 
 use GuzzleHttp\Psr7\ServerRequest;
 use GuzzleHttp\Psr7\Uri;
-use Pixw\HttpMessage\AbstractHttpMessageConverterTest;
 use JMS\Serializer\SerializerInterface;
-use Pixw\HttpMessage\Converter\Jms\Foo\Bar;
-use Pixw\HttpMessage\Converter\TypeRegistry;
+use Heneke\Http\Serializer\Foo\Bar;
 
-class JmsHttpMessageConverterHttpMessageConverterTest extends AbstractHttpMessageConverterTest
+class JmsHttpSerializerTest extends AbstractHttpSerializerTest
 {
 
     /**
-     * @var JmsHttpMessageConverter
+     * @var JmsHttpSerializer
      */
     private $converter;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->converter = new JmsHttpMessageConverter(
+        $this->converter = new JmsHttpSerializer(
             $this->make(SerializerInterface::class),
             $this->make(TypeRegistry::class)
         );

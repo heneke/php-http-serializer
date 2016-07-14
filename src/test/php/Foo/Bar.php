@@ -1,5 +1,5 @@
 <?php
-namespace Pixw\HttpMessage\Converter\Jms\Foo;
+namespace Heneke\Http\Serializer\Foo;
 
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\XmlRoot;

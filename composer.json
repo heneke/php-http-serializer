@@ -1,6 +1,6 @@
 {
-  "name": "pixw/http-message-converter",
-  "description": "HTTP Message Converter",
+  "name": "heneke/http-serializer",
+  "description": "HTTP message serializer",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -11,6 +11,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
+    "php": ">=5.6.0",
     "psr/http-message": "^1.0",
     "jms/serializer": "^1.1"
   },
@@ -20,12 +21,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Pixw\\HttpMessage\\Converter\\": "src/main/php"
+      "Heneke\\Http\\Serializer\\": "src/main/php"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Pixw\\HttpMessage\\Converter\\": "src/test/php"
+      "Heneke\\Http\\Serializer\\": "src/test/php"
     }
   }
 }

@@ -1,13 +1,12 @@
 <?php
-namespace Pixw\HttpMessage;
+namespace Heneke\Http\Serializer;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerInterface;
 use JMS\Serializer\SerializerBuilder;
-use Pixw\HttpMessage\Converter\TypeRegistry;
 
-abstract class AbstractHttpMessageConverterTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractHttpSerializerTest extends \PHPUnit_Framework_TestCase
 {
 
     private $registry = [];
@@ -16,7 +15,6 @@ abstract class AbstractHttpMessageConverterTest extends \PHPUnit_Framework_TestC
     protected function setUp()
     {
         parent::setUp();
-
         $this->register(SerializerInterface::class, function () {
             AnnotationRegistry::registerLoader('class_exists');
             return SerializerBuilder::create()
@@ -26,7 +24,7 @@ abstract class AbstractHttpMessageConverterTest extends \PHPUnit_Framework_TestC
         });
 
         $this->register(TypeRegistry::class, function () {
-            return new TypeRegistry();
+            return new SimpleTypeRegistry();
         });
     }
 

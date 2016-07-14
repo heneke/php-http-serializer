@@ -1,12 +1,10 @@
 <?php
-namespace Pixw\HttpMessage\Converter\Jms;
+namespace Heneke\Http\Serializer;
 
 use JMS\Serializer\SerializerInterface;
-use Pixw\HttpMessage\Converter\HttpMessageConverter;
-use Pixw\HttpMessage\Converter\TypeRegistry;
 use Psr\Http\Message\ServerRequestInterface;
 
-class JmsHttpMessageConverter implements HttpMessageConverter
+class JmsHttpSerializer implements HttpSerializer
 {
 
     const FORMAT_JSON = 'json';
@@ -44,12 +42,12 @@ class JmsHttpMessageConverter implements HttpMessageConverter
         $this->checkFormat($this->defaultDeserializationFormat);
     }
 
-    public function deserialize(ServerRequestInterface $request, $type = null)
+    public function deserialize(ServerRequestInterface $serverRequest, $type = null)
     {
         if (!$type) {
-            return $this->convertImplicit($request, $type);
+            return $this->convertImplicit($serverRequest, $type);
         }
-        return $this->convertExcplicit($request, $type);
+        return $this->convertExcplicit($serverRequest, $type);
     }
 
     private function convertImplicit(ServerRequestInterface $request)
