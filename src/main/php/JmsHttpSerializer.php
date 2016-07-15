@@ -2,6 +2,7 @@
 namespace Heneke\Http\Serializer;
 
 use GuzzleHttp\Psr7\Response;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Negotiation\Negotiator;
 use Psr\Http\Message\ServerRequestInterface;
@@ -221,7 +222,13 @@ class JmsHttpSerializer implements HttpSerializer
                 $mimeType = $mimeType . '+' . $format;
             }
         }
-        $serialized = $this->serializer->serialize($serializable->getData(), $format);
+
+        if (!empty($serializable->getGroups())) {
+            $serialized = $this->serializer->serialize($serializable->getData(), $format, SerializationContext::create()->setGroups($serializable->getGroups()));
+        } else {
+            $serialized = $this->serializer->serialize($serializable->getData(), $format);
+        }
+
         return new Response(200, ['Content-Type' => $mimeType], $serialized);
     }
 }
