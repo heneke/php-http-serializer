@@ -4,7 +4,10 @@ namespace Heneke\Http\Serializer;
 class SimpleTypeRegistry implements TypeRegistry
 {
 
-    private $types = [];
+    /**
+     * @var array
+     */
+    protected $types = [];
 
     public function register($mimeType, $type)
     {
