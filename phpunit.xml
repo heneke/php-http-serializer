@@ -5,4 +5,16 @@
             <directory suffix="Test.php">src/test/php</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./src/main/php</directory>
+        </whitelist>
+        <blacklist>
+            <directory>./src/test/php</directory>
+            <directory>./vendor</directory>
+        </blacklist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="./reports/coverage"/>
+    </logging>
 </phpunit>
