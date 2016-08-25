@@ -31,7 +31,7 @@ class JmsHttpSerializerTest extends AbstractHttpSerializerTest
     /**
      * @test
      */
-    public function explicitObjectJson()
+    public function deserializeExplicitObjectJson()
     {
         $mimeType = 'application/json';
 
@@ -45,7 +45,7 @@ class JmsHttpSerializerTest extends AbstractHttpSerializerTest
     /**
      * @test
      */
-    public function explicitArrayJson()
+    public function deserializeExplicitArrayJson()
     {
         $mimeType = 'application/json';
 
@@ -62,7 +62,7 @@ class JmsHttpSerializerTest extends AbstractHttpSerializerTest
     /**
      * @test
      */
-    public function implicitObjectJson()
+    public function deserializeImplicitObjectJson()
     {
         $mimeType = 'application/vnd.foo.bar';
         $this->make(TypeRegistry::class)->register($mimeType, Bar::class);
@@ -83,7 +83,7 @@ class JmsHttpSerializerTest extends AbstractHttpSerializerTest
     /**
      * @test
      */
-    public function implicitArrayJson()
+    public function deserializeImplicitArrayJson()
     {
         $mimeType = 'application/vnd.foo.bars';
         $this->make(TypeRegistry::class)->register($mimeType, 'array<' . Bar::class . '>');
@@ -112,7 +112,7 @@ class JmsHttpSerializerTest extends AbstractHttpSerializerTest
     /**
      * @test
      */
-    public function implicitObjectXml()
+    public function deserializeImplicitObjectXml()
     {
         $mimeType = 'application/vnd.foo.bar';
         $this->make(TypeRegistry::class)->register($mimeType, Bar::class);
