@@ -16,5 +16,5 @@ interface HttpSerializable
 
     public function withMimeType($mimeType);
 
-    public function withGroups($groups, $default = true);
+    public function withGroups($groups, $withDefaultGroup = true);
 }

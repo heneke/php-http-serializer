@@ -9,21 +9,29 @@ class HttpSerializableResponse implements HttpSerializable
     private $mimeType;
     private $groups;
 
-    public function __construct($data, $format = null, $mimeType = null, $groups = null)
+    public function __construct($data, $format = null, $mimeType = null, $groups = null, $withDefaultGroup = true)
     {
         $this->data = $data;
         $this->format = $format;
         $this->mimeType = $mimeType;
         $this->groups = [];
+        if ($withDefaultGroup) {
+            $this->groups[] = 'Default';
+        }
         if ($groups !== null) {
             if (is_array($groups)) {
-                $this->groups = $groups;
+                $this->groups = array_merge($this->groups, $groups);
             } else {
                 $this->groups[] = $groups;
             }
         }
     }
 
+    /**
+     * @param $data
+     * @return HttpSerializableResponse
+     * @codeCoverageIgnore
+     */
     public static function create($data)
     {
         return new HttpSerializableResponse($data);
@@ -67,10 +75,15 @@ class HttpSerializableResponse implements HttpSerializable
         return $this;
     }
 
-    public function withGroups($groups, $default = true)
+    public function withGroups($groups, $withDefaultGroup = true)
     {
-        if ($default) {
+        if (!$groups) {
+            throw new \InvalidArgumentException('Groups required!');
+        }
+        if ($withDefaultGroup) {
             $this->groups = ['Default'];
+        } else {
+            $this->groups = [];
         }
         if ($groups !== null) {
             if (is_array($groups)) {
