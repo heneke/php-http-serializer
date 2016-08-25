@@ -85,6 +85,12 @@ class CarbonHandler implements SubscribingHandlerInterface
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
                 'method' => 'serializeCarbon'
             );
+            $methods[] = array(
+                'type' => $type,
+                'format' => 'yml',
+                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                'method' => 'serializeCarbon'
+            );
         }
         return $methods;
     }
