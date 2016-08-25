@@ -24,7 +24,7 @@ class CarbonHandler implements SubscribingHandlerInterface
      * @param string $defaultFormat
      * @param string $defaultTimezone
      */
-    public function __construct($defaultFormat = 'Y-m-d\TH:i:s\Z', $defaultTimezone = null)
+    public function __construct($defaultFormat = 'c', $defaultTimezone = null)
     {
         $this->defaultFormat = $defaultFormat;
         if ($defaultTimezone == null) {
