@@ -24,17 +24,37 @@ class CarbonHandler implements SubscribingHandlerInterface
      * @param string $defaultFormat
      * @param string $defaultTimezone
      */
-    public function __construct($defaultFormat = 'c', $defaultTimezone = null)
+    public function __construct($defaultFormat = 'Y-m-d\TH:i:s\Z', $defaultTimezone = 'UTC')
     {
-        $this->defaultFormat = $defaultFormat;
-        if ($defaultTimezone == null) {
-            $defaultTimezone = date_default_timezone_get();
+        if (!$defaultFormat) {
+            throw new \InvalidArgumentException('Default format required!');
         }
+        if (!$defaultTimezone) {
+            throw new \InvalidArgumentException('Default timezone required!');
+        }
+        $this->defaultFormat = $defaultFormat;
         $this->defaultTimezone = new \DateTimeZone($defaultTimezone);
     }
 
     /**
+     * @return string
+     */
+    public function getDefaultFormat()
+    {
+        return $this->defaultFormat;
+    }
+
+    /**
+     * @return \DateTimeZone
+     */
+    public function getDefaultTimezone()
+    {
+        return $this->defaultTimezone;
+    }
+
+    /**
      * @return array
+     * @codeCoverageIgnore
      */
     public static function getSubscribingMethods()
     {
@@ -79,16 +99,18 @@ class CarbonHandler implements SubscribingHandlerInterface
      */
     public function deserializeCarbon(VisitorInterface $visitor, $data, array $type)
     {
-        if (null === $data) {
+        if (!$data) {
             return null;
         }
         $timezone = isset($type['params'][1]) ? new \DateTimeZone($type['params'][1]) : $this->defaultTimezone;
         $format = $this->getFormat($type);
         $datetime = Carbon::createFromFormat($format, (string)$data, $timezone);
+        // @codeCoverageIgnoreStart
         if (false === $datetime) {
-            throw new RuntimeException(sprintf('Invalid datetime "%s", expected format %s.', $data, $format));
+            throw new \InvalidArgumentException(sprintf('Invalid datetime "%s", expected format %s.', $data, $format));
         }
-        $datetime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        // @codeCoverageIgnoreEnd
+        $datetime->setTimezone($timezone);
         return $datetime;
     }
 
