@@ -19,6 +19,7 @@
     "willdurand/negotiation": "^2.0"
   },
   "require-dev": {
+    "mockery/mockery": "^0.9.5",
     "phpunit/phpunit": "^4.8"
   },
   "autoload": {
